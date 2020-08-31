@@ -1,0 +1,64 @@
+version: "3.3"
+
+services:
+
+  regulationserviceapi:
+    container_name: regulationserviceapi
+    build:
+      context: regulationserviceapi
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    environment:
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL5InnoDBDialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_URL: jdbc:mysql://regulation-db:3306/regulations
+      SPRING_DATASOURCE_USERNAME: regulations
+      SPRING_DATASOURCE_PASSWORD: regulations
+    depends_on:
+      - regulation-db
+    networks:
+      - frontnet
+      - backnet
+  
+  regulationdataserver:
+    container_name: regulationdataserver
+    build:
+      context: regulationdataserver
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    expose:
+      - "8081"
+
+  regulation-db:
+    container_name: regulation-db
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: regulations
+      MYSQL_USER: regulations
+      MYSQL_PASSWORD: regulations
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - regulation-db-data:/var/lib/mysql
+    networks: 
+      - backnet
+  
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8090:80
+    networks:
+      - backnet
+
+volumes:
+  regulation-db-data:
+
+networks:
+  frontnet:
+  backnet:
