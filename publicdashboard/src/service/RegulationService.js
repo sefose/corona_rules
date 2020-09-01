@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://localhost:8080/";
+const API_URL = "http://regulationserviceapi:8080/";
 const stateNameURL = API_URL + "regulations/";
 
 export const findRegulation = (stateName) => {
