@@ -37,6 +37,17 @@ services:
       - regulationserviceapi
     stdin_open: true
 
+  publicdashboard:
+    container_name: publicdashboard
+    build:
+      context: publicdashboard
+      dockerfile: Dockerfile
+    ports:
+      - 1081:81
+    depends_on:
+      - regulationserviceapi
+    stdin_open: true
+
   regulationserviceapi:
     container_name: regulationserviceapi
     build:
