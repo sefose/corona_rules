@@ -45,13 +45,13 @@ public class RegulationdataService {
         Regulation regulation = new Regulation();
         regulation.setStateName(stateName);
         regulation.setMaxPersonsIndoor(createRandomInt(20));
-        regulation.setMaxPersonsOutdoor(createRandomInt(30));
+        regulation.setMaxPersonsOutdoor(regulation.getMaxPersonsIndoor() + createRandomInt(10));
         regulation.setMaxHouseholdsIndoor(createRandomInt(15));
-        regulation.setMaxHouseholdsOutdoor(createRandomInt(20));
+        regulation.setMaxHouseholdsOutdoor(regulation.getMaxHouseholdsIndoor() + createRandomInt(5));
         regulation.setMaskRequired(Math.random() < 0.5);
         regulation.setClosedBusinesses(createClosedBusinesses());
         regulation.setMaxAttendeesIndoor(((double)createRandomInt(20))/10);
-        regulation.setMaxAttendeesOutdoor(((double)createRandomInt(30))/10);
+        regulation.setMaxAttendeesOutdoor(regulation.getMaxAttendeesIndoor() + ((double)createRandomInt(10))/10);
         regulation.setFurtherRestrictions(furtherRestrictions[createRandomInt(furtherRestrictions.length)-1]);
         return regulation;
     }

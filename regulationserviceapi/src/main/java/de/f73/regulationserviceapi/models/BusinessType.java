@@ -19,8 +19,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BusinessType {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // private Long id;
     String type;
     @ManyToOne
     @JoinColumn(name = "regulationId")

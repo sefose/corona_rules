@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import de.f73.regulationserviceapi.models.BusinessType;
 
 @Repository
-public interface BusinessTypeRepository extends JpaRepository<BusinessType, Long> {
+public interface BusinessTypeRepository extends JpaRepository<BusinessType, String> {
     
 }
