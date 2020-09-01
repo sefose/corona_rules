@@ -1,7 +1,7 @@
 import React, {useState}from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import GeneratedDropdown from "./components/GeneratedDropdown";
+import StateNameDropdown from "./components/StateNameDropdown";
 import { findAllStateNames } from "./service/RegulationDataService";
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
       </Navbar>
       <Container>
         {console.log('findAllStaeNames()', findAllStateNames())}
-        <GeneratedDropdown items={} onChangeCallback={setStateName} ></GeneratedDropdown>
+        <StateNameDropdown onChangeCallback={setStateName} ></StateNameDropdown>
       </Container>
     </>
   );
