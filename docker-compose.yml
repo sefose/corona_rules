@@ -37,6 +37,17 @@ services:
       - regulationserviceapi
     stdin_open: true
 
+  importscheduler:
+    container_name: importscheduler
+    build:
+      context: importscheduler
+      dockerfile: Dockerfile
+    ports:
+      - 1099:80
+    depends_on:
+      - regulationdataserver
+      - regulationserviceapi
+
   publicdashboard:
     container_name: publicdashboard
     build:
@@ -78,6 +89,8 @@ services:
       - "8081:8080"
     expose:
       - "8081"
+    
+    
       
 volumes:
   regulation-db-data:
