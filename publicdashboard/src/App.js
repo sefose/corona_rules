@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import RegulationCheckForm from './components/RegulationCheckForm'
+import RegulationDisplay from './components/RegulationDisplay'
 
-function App() {
+const App = () => {
+
+  const [view, setview] = useState("display")
+
+  function viewSwitch(view) {
+    switch (view) {
+      case "display":
+        return(<RegulationDisplay />)
+      case "checker":
+        return(<RegulationCheckForm></RegulationCheckForm>)  
+      default:
+        break;
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Navbar bg="light" expand="lg">
+      <Navbar.Brand>React-Bootstrap</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link onClick={() => setview("display")} active={view ==="display"}>Verordnungen</Nav.Link>
+          <Nav.Link onClick={() => setview("checker")} active={view ==="checker"}>Konformitätsprüfer</Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+    {viewSwitch(view)}
+    </>
   );
 }
 
