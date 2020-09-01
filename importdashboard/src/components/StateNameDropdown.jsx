@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from "react";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import { findAllStateNames } from "../service/RegulationDataService";
 
 const GeneratedDropdown = ({ onChangeCallback }) => {
   const [stateNames, setStateNames] = useState([]);
-  
+  const [selectedState, setSelectedState] = useState("Please Choose a State");
+
   useEffect(() => {
     findAllStateNames()
       .then((resp) => {
-        console.log("resp", resp);
         setStateNames(resp.data);
       })
       .catch((error) => console.log("error", error));
   }, [setStateNames]);
 
+  const onStateSeleted = (key, e) => {
+    const value = e.target.innerHTML;
+    console.log('value', value)
+    setSelectedState(value);
+    onChangeCallback(value);
+  };
+
   return (
     <DropdownButton
-      id="dropdown-basic-button"
-      title="Dropdown button"
-      onChange={onChangeCallback}
+    variant="secondary"
+      title={selectedState}
+      onSelect={onStateSeleted}
     >
-      {stateNames.map((stateName) => (
-        <Dropdown.Item>stateName</Dropdown.Item>
+      {stateNames.map((stateName, index) => (
+        <Dropdown.Item key={index}>{stateName}</Dropdown.Item>
       ))}
     </DropdownButton>
   );
