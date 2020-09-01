@@ -1,6 +1,41 @@
 version: "3.3"
 
 services:
+  
+  regulation-db:
+    container_name: regulation-db
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: regulations
+      MYSQL_USER: regulations
+      MYSQL_PASSWORD: regulations
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - regulation-db-data:/var/lib/mysql
+    networks: 
+      - backnet
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8090:80
+    networks:
+      - backnet
+
+  importdashboard:
+    container_name: importdashboard
+    build:
+      context: importdashboard
+      dockerfile: Dockerfile
+    ports:
+      - 1080:80
+    depends_on:
+      - regulationdataserver
+      - regulationserviceapi
+    stdin_open: true
 
   regulationserviceapi:
     container_name: regulationserviceapi
@@ -32,30 +67,7 @@ services:
       - "8081:8080"
     expose:
       - "8081"
-
-  regulation-db:
-    container_name: regulation-db
-    image: mysql:5.7
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_DATABASE: regulations
-      MYSQL_USER: regulations
-      MYSQL_PASSWORD: regulations
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - regulation-db-data:/var/lib/mysql
-    networks: 
-      - backnet
-  
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - 8090:80
-    networks:
-      - backnet
-
+      
 volumes:
   regulation-db-data:
 
