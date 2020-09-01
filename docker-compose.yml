@@ -17,13 +17,13 @@ services:
     networks: 
       - backnet
 
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - 8090:80
-    networks:
-      - backnet
+  # phpmyadmin:
+  #   container_name: phpmyadmin
+  #   image: phpmyadmin/phpmyadmin
+  #   ports:
+  #     - 8090:80
+  #   networks:
+  #     - backnet
 
   importdashboard:
     container_name: importdashboard
@@ -31,22 +31,20 @@ services:
       context: importdashboard
       dockerfile: Dockerfile
     ports:
-      - 1080:80
+      - 1080:82
     depends_on:
       - regulationdataserver
       - regulationserviceapi
     stdin_open: true
 
-  importscheduler:
-    container_name: importscheduler
-    build:
-      context: importscheduler
-      dockerfile: Dockerfile
-    ports:
-      - 1099:80
-    depends_on:
-      - regulationdataserver
-      - regulationserviceapi
+  # importscheduler:
+  #   container_name: importscheduler
+  #   build:
+  #     context: importscheduler
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - regulationdataserver
+  #     - regulationserviceapi
 
   publicdashboard:
     container_name: publicdashboard
@@ -77,7 +75,6 @@ services:
     depends_on:
       - regulation-db
     networks:
-      - frontnet
       - backnet
   
   regulationdataserver:
@@ -86,9 +83,11 @@ services:
       context: regulationdataserver
       dockerfile: Dockerfile
     ports:
-      - "8081:8080"
+      - "8081:8081"
     expose:
       - "8081"
+    environment: 
+      SERVER_PORT: 8081
     
     
       
@@ -96,5 +95,4 @@ volumes:
   regulation-db-data:
 
 networks:
-  frontnet:
   backnet:
