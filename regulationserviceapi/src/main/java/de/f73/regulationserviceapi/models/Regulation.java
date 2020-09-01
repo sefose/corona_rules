@@ -17,9 +17,6 @@ import lombok.Setter;
 @Setter
 public class Regulation {
     
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // private Long id;
     @Id
     String stateName;
     int maxPersonsIndoor;
