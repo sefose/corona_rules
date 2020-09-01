@@ -8,17 +8,24 @@ import {
   findRegulationByStateName,
 } from "./service/RegulationDataService";
 
+import {
+  saveAllRegulations,
+  saveRegulation,
+} from "./service/RegulationServiceApiService";
+
 const App = () => {
   const DEFAULTSTATECHOOSERTEXT = "please choose a State";
   const [stateName, setStateName] = useState(DEFAULTSTATECHOOSERTEXT);
 
   const importAllRegulations = () => {
-    findAllRegulations().then((resp) => console.log("resp.data", resp.data));
+    findAllRegulations().then((resp) => saveAllRegulations(resp.data));
   };
 
   const importRegulationsByState = () => {
     if (stateName !== DEFAULTSTATECHOOSERTEXT) {
-      findRegulationByStateName(stateName).then((resp) => console.log("resp.data", resp.data));
+      findRegulationByStateName(stateName).then((resp) =>
+        saveRegulation(resp.data)
+      );
     }
   };
 
