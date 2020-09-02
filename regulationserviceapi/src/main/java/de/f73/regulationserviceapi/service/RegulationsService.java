@@ -2,6 +2,7 @@ package de.f73.regulationserviceapi.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,10 @@ public class RegulationsService {
 
 	public void deleteByState(String state) {
 		regulationsRepository.delete(findByStateName(state));
+	}
+
+	public List<String> getStateNames() {
+		return this.findAll().stream().map(regulation -> regulation.getStateName()).collect(Collectors.toList());
 	}
 
 

@@ -9,7 +9,7 @@ const LoginModal = () => {
   const [show, setShow] = useState(true);
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const [loginPrompt, setLoginPrompt] = useState("Please Log In")
+  const [loginPrompt, setLoginPrompt] = useState("Bitte einloggen")
 
   const handleClose = () => setShow(false);
 
@@ -33,15 +33,15 @@ const LoginModal = () => {
       <Modal.Body>
         <Form>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>User</Form.Label>
+            <Form.Label>Benutzer</Form.Label>
             <Form.Control type="text" placeholder="user" onChange={e => setUser(e.target.value)}/>
             <Form.Text className="text-muted">
-              Your device will explose when you enter wrong credentials!
+              Ihr Gerät wird explosieren, wenn Sie die falschen Daten eingeben!
             </Form.Text>
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Passwort</Form.Label>
             <Form.Control type="password" placeholder="password" onChange={e => setPassword(e.target.value)}/>
           </Form.Group>
         </Form>
