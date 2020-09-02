@@ -22,7 +22,7 @@ public class Regulation {
     int maxHouseholdsIndoor;
     int maxHouseholdsOutdoor;
     boolean maskRequired;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "regulation")
+    @OneToMany(cascade = CascadeType.ALL)
     List<BusinessType> closedBusinesses;
     Double maxAttendeesIndoor;
     Double maxAttendeesOutdoor;
