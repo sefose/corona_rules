@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { findAllStateNames } from "../service/RegulationDataService";
+import { getStateNames } from "../service/RegulationService";
 
 const GeneratedDropdown = ({ onChangeCallback }) => {
   const [stateNames, setStateNames] = useState([]);
   const [selectedState, setSelectedState] = useState("Bitte wählen Sie ein Bundesland");
-
   useEffect(() => {
-    findAllStateNames()
+    getStateNames()
       .then((resp) => {
         setStateNames(resp.data);
       })

@@ -15,7 +15,7 @@ import {
 } from "./service/RegulationServiceApiService";
 
 const App = () => {
-  const DEFAULTSTATECHOOSERTEXT = "please choose a State";
+  const DEFAULTSTATECHOOSERTEXT = "Bitte wählen Sie ein Bundesland";
   const [stateName, setStateName] = useState(DEFAULTSTATECHOOSERTEXT);
 
   const importAllRegulations = () => {
@@ -37,7 +37,7 @@ const App = () => {
         <Navbar.Brand>Import Dashbord</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Navbar.Text>get the data from the trustful source</Navbar.Text>
+          <Navbar.Text>Daten aus einer vertrauenswürdigen Quelle!</Navbar.Text>
         </Navbar.Collapse>
       </Navbar>
       <Container>
@@ -46,10 +46,10 @@ const App = () => {
             onChangeCallback={setStateName}
           ></StateNameDropdown>
           <Button onClick={importRegulationsByState} variant="secondary">
-            Import data for selected state
+            Daten für das gewählte Bundesland importieren
           </Button>
           <Button onClick={importAllRegulations} variant="secondary">
-            Import data for all states
+            Daten für alle Bundesländer importieren
           </Button>
         </div>
       </Container>

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class RegulationsController {
 
     @Autowired
-    RegulationsService regulationsService;
+    private RegulationsService regulationsService;
     
     @GetMapping("/regulations")
     public ResponseEntity<List<Regulation>> getRegulations () {
@@ -54,6 +54,12 @@ public class RegulationsController {
     public ResponseEntity<Void> deleteRegulation(@PathVariable String state) {
         regulationsService.deleteByState(state);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/stateNames")
+    public ResponseEntity<List<String>> getStateNames () {
+        List<String> stateNames = regulationsService.getStateNames();
+        return new ResponseEntity<>(stateNames, HttpStatus.OK);
     }
     
 }

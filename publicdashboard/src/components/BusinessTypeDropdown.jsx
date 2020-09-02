@@ -1,35 +1,34 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { findAllStateNames } from "../service/RegulationDataService";
+import { getBusinessTypes } from "../service/BusinessTypeService";
 
 const GeneratedDropdown = ({ onChangeCallback }) => {
-  const [stateNames, setStateNames] = useState([]);
-  const [selectedState, setSelectedState] = useState("Bitte wählen Sie ein Bundesland");
-
+  const [businessTypes, setBusinessTypes] = useState([]);
+  const [selectedType, setSelectedType] = useState("Bitte wählen Sie ein Gebäude");
   useEffect(() => {
-    findAllStateNames()
+    getBusinessTypes()
       .then((resp) => {
-        setStateNames(resp.data);
+        setBusinessTypes(resp.data);
       })
       .catch((error) => console.log("error", error));
-  }, [setStateNames]);
+  }, [setBusinessTypes]);
 
   const onStateSeleted = (key, e) => {
     const value = e.target.innerHTML;
     console.log('value', value)
-    setSelectedState(value);
+    setSelectedType(value);
     onChangeCallback(value);
   };
 
   return (
     <DropdownButton
     variant="secondary"
-      title={selectedState}
+      title={selectedType}
       onSelect={onStateSeleted}
     >
-      {stateNames.map((stateName, index) => (
-        <Dropdown.Item key={index}>{stateName}</Dropdown.Item>
+      {businessTypes.map((type, index) => (
+        <Dropdown.Item key={index}>{type}</Dropdown.Item>
       ))}
     </DropdownButton>
   );
