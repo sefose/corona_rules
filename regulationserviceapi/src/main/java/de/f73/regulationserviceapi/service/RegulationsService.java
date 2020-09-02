@@ -13,8 +13,8 @@ import de.f73.regulationserviceapi.persistence.RegulationsRepository;
 @Service
 public class RegulationsService {
 
-    @Autowired
-    RegulationsRepository regulationsRepository;
+	@Autowired
+	RegulationsRepository regulationsRepository;
 
 	public List<Regulation> findAll() {
 		return regulationsRepository.findAll();
@@ -23,7 +23,7 @@ public class RegulationsService {
 	public Regulation findByStateName(String state) {
 		Optional<Regulation> regulationOpt = regulationsRepository.findByStateName(state);
 		if (regulationOpt.isPresent()) {
-			return  regulationOpt.get();
+			return regulationOpt.get();
 		}
 		return null;
 	}
@@ -44,6 +44,4 @@ public class RegulationsService {
 		return this.findAll().stream().map(regulation -> regulation.getStateName()).collect(Collectors.toList());
 	}
 
-
-    
 }

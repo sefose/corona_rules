@@ -3,7 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import StateNameDropdown from "./components/StateNameDropdown";
-import LoginModal from "./components/LoginModal"
+import LoginModal from "./components/LoginModal";
 import {
   findAllRegulations,
   findRegulationByStateName,
@@ -32,7 +32,7 @@ const App = () => {
 
   return (
     <>
-      <LoginModal/>
+      <LoginModal />
       <Navbar bg="light" expand="lg">
         <Navbar.Brand>Import Dashbord</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

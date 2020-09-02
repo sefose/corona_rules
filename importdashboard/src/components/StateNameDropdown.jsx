@@ -3,9 +3,11 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { findAllStateNames } from "../service/RegulationDataService";
 
-const GeneratedDropdown = ({ onChangeCallback }) => {
+const StateNameDropdown = ({ onChangeCallback }) => {
   const [stateNames, setStateNames] = useState([]);
-  const [selectedState, setSelectedState] = useState("Bitte wählen Sie ein Bundesland");
+  const [selectedState, setSelectedState] = useState(
+    "Bitte wählen Sie ein Bundesland"
+  );
 
   useEffect(() => {
     findAllStateNames()
@@ -17,14 +19,14 @@ const GeneratedDropdown = ({ onChangeCallback }) => {
 
   const onStateSeleted = (key, e) => {
     const value = e.target.innerHTML;
-    console.log('value', value)
+    console.log("value", value);
     setSelectedState(value);
     onChangeCallback(value);
   };
 
   return (
     <DropdownButton
-    variant="secondary"
+      variant="secondary"
       title={selectedState}
       onSelect={onStateSeleted}
     >
@@ -35,4 +37,4 @@ const GeneratedDropdown = ({ onChangeCallback }) => {
   );
 };
 
-export default GeneratedDropdown;
+export default StateNameDropdown;

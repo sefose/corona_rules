@@ -20,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Regulation {
-    
+
     @Id
     String stateName;
     int maxPersonsIndoor;

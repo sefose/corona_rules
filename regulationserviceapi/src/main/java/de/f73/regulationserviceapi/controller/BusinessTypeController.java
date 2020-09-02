@@ -12,12 +12,12 @@ import de.f73.regulationserviceapi.service.BusinessTypeService;
 
 @Controller
 public class BusinessTypeController {
-    
+
     @Autowired
     BusinessTypeService businessTypeService;
 
     @GetMapping("/businessTypes")
-    public ResponseEntity<List<String>> getBusinessTypes () {
+    public ResponseEntity<List<String>> getBusinessTypes() {
         List<String> stateNames = businessTypeService.getBusinessTypes();
         return new ResponseEntity<>(stateNames, HttpStatus.OK);
     }

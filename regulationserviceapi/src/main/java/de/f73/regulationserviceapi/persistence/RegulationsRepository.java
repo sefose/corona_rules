@@ -11,5 +11,5 @@ import de.f73.regulationserviceapi.models.Regulation;
 public interface RegulationsRepository extends JpaRepository<Regulation, String> {
 
 	Optional<Regulation> findByStateName(String state);
-    
+
 }
