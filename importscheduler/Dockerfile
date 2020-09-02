@@ -10,4 +10,4 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
-ENTRYPOINT ["dockerize", "-wait", "http://regulationserviceapi:8080/regulations","-wait","http://regulationdataserver:8081/regulations","node", "app.js"]
+ENTRYPOINT ["dockerize", "-wait", "http://regulationserviceapi:8080/regulations","-wait","http://regulationdataserver:8081/regulations", "-timeout", "30s","node", "app.js"]
