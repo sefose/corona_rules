@@ -45,7 +45,7 @@ const LoginModal = () => {
               onChange={(e) => setUser(e.target.value)}
             />
             <Form.Text className="text-muted">
-              Ihr Gerät wird explosieren, wenn Sie die falschen Daten eingeben!
+              Ihr Gerät wird explodieren, wenn Sie die falschen Daten eingeben!
             </Form.Text>
           </Form.Group>
 

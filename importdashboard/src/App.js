@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
 import StateNameDropdown from "./components/StateNameDropdown";
 import LoginModal from "./components/LoginModal";
 import {
@@ -40,18 +41,22 @@ const App = () => {
           <Navbar.Text>Daten aus einer vertrauenswürdigen Quelle!</Navbar.Text>
         </Navbar.Collapse>
       </Navbar>
-      <Container>
-        <div className="d-flex justify-content-between m-3">
+      <Container className="m-4">
+        <Row className="m-4">
           <StateNameDropdown
             onChangeCallback={setStateName}
           ></StateNameDropdown>
+        </Row>
+        <Row className="m-4">
           <Button onClick={importRegulationsByState} variant="secondary">
             Daten für das gewählte Bundesland importieren
           </Button>
+        </Row>
+        <Row className="m-4">
           <Button onClick={importAllRegulations} variant="secondary">
             Daten für alle Bundesländer importieren
           </Button>
-        </div>
+        </Row>
       </Container>
     </>
   );
