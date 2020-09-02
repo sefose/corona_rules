@@ -22,7 +22,7 @@ const App = () => {
   return (
     <>
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand>React-Bootstrap</Navbar.Brand>
+      <Navbar.Brand>Corona Rules</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">

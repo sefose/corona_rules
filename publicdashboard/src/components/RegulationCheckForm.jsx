@@ -1,65 +1,90 @@
-import React from "react";
-import BusinessTypeDropDown from './BusinessTypeDropdown'
+import React, { useState } from "react";
+import DropdownAsync from "./DropdownAsync";
+import Dropdown from "./Dropdown";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { getBusinessTypes } from "../service/BusinessTypeService";
+import { findRegulation, getStateNames } from "../service/RegulationService";
 
 const RegulationCheckForm = () => {
+  const [indoors, setIndoors] = useState();
+  const [area, setArea] = useState();
+  const [eventType, setEventType] = useState();
+  const [regulation, setRegulation] = useState();
+  const [businessType, setBusinessType] = useState();
 
-  const cb = () => console.log("Callback!")
+  const loadRegulation = (stateName) => {
+    findRegulation(stateName).then((resp) => {
+      setRegulation(resp.data);
+    });
+  };
+
+  const checkForm = () => {
+    console.log('indoors :>> ', indoors);
+    console.log('area :>> ', area);
+    console.log('eventType :>> ', eventType);
+    console.log('regulation :>> ', regulation);
+    console.log('businessType :>> ', businessType);
+  }
 
   return (
     <>
-    <BusinessTypeDropDown onChangeCallback={cb}/>
-    <form className="m-3">
-      <div className="form-group">
-        <label for="sortOfSelect">Art der Unternehmung</label>
-        <select className="form-control" id="sortOfSelect">
-          <option>Zusammenkunft mehrerer Menschen</option>
-          <option>Besuch eines öffentlichen Gebäudes</option>
-          <option>Öffenliche Veranstaltung</option>
-        </select>
-      </div>
-      <div className="form-group">
-        <label for="areaInput">m^2 </label>
-        <input
-          type="number"
-          className="form-control"
-          id="areaInput"
-          placeholder="200"
+      <Form className="ml-4">
+        <DropdownAsync
+          onChangeCallback={loadRegulation}
+          getData={getStateNames}
+          placeholder="Bundesland"
         />
-      </div>
-      <div className="form-group">
-        <label for="businesstypeSelect">Art der Unternehmung</label>
-        <select className="form-control" id="businesstypeSelect">
-          <option>type1</option>
-          <option>type1</option>
-          <option>type1</option>
-        </select>
-      </div>
-      <div className="form-group">
-      <label for="inlineCheckbox1">Innerhalb oder außerhalb geschlossener Räume? </label>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="inlineCheckbox1"
-            value="option1"
+        <br></br>
+        <Dropdown
+          onChangeCallback={setEventType}
+          data={[
+            "Zusammenkunft mehrerer Menschen",
+            "Besuch eines öffentlichen Gebäudes",
+            "Öffenliche Veranstaltung",
+          ]}
+          placeholder="Art der Unternehmung"
+        />
+
+        <Form.Group controlId="form.area">
+          <Form.Label>Fläche</Form.Label>
+          <Form.Control
+            as="input"
+            type="text"
+            pattern="[0-9]*"
+            onChange={(e) => setArea(e.target.value)}
           />
-          <label class="form-check-label" for="inlineCheckbox1">
-            Innerhalb
-          </label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="inlineCheckbox2"
-            value="option2"
+        </Form.Group>
+        <input type="number"/>
+
+        <DropdownAsync
+          onChangeCallback={setBusinessType}
+          getData={getBusinessTypes}
+          placeholder="Gebäudetyp"
+        />
+
+        <Form.Group controlId="form.inout">
+          <Form.Label>Innerhalb oder außerhalb geschlossener Räume?</Form.Label>
+          <Form.Check
+            name="form.inout"
+            type="radio"
+            id={`default-radio`}
+            label={`innerhalb`}
+            onClick={() => setIndoors(true)}
           />
-          <label class="form-check-label" for="inlineCheckbox2">
-            Außerhalb
-          </label>
-        </div>
-      </div>
-    </form>
+          <Form.Check
+            name="form.inout"
+            type="radio"
+            id={`default-radio`}
+            label={`außerhalb`}
+            onClick={() => setIndoors(false)}
+          />
+        </Form.Group>
+
+        <Button variant="primary" onClick={checkForm}>
+          Prüfen
+        </Button>
+      </Form>
     </>
   );
 };

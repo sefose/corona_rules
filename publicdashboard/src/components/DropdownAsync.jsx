@@ -1,37 +1,36 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { getStateNames } from "../service/RegulationService";
 
-const GeneratedDropdown = ({ onChangeCallback }) => {
-  const [stateNames, setStateNames] = useState([]);
-  const [selectedState, setSelectedState] = useState("Bitte wählen Sie ein Bundesland");
+const DropdownAsync = ({ onChangeCallback, getData, placeholder }) => {
+  const [items, setItems] = useState([]);
+  const [selected, setSelected] = useState(placeholder);
   useEffect(() => {
-    getStateNames()
+    getData()
       .then((resp) => {
-        setStateNames(resp.data);
+        setItems(resp.data);
       })
       .catch((error) => console.log("error", error));
-  }, [setStateNames]);
+  }, [setItems]);
 
   const onStateSeleted = (key, e) => {
     const value = e.target.innerHTML;
     console.log('value', value)
-    setSelectedState(value);
+    setSelected(value);
     onChangeCallback(value);
   };
 
   return (
     <DropdownButton
     variant="secondary"
-      title={selectedState}
+      title={selected}
       onSelect={onStateSeleted}
     >
-      {stateNames.map((stateName, index) => (
-        <Dropdown.Item key={index}>{stateName}</Dropdown.Item>
+      {items.map((type, index) => (
+        <Dropdown.Item key={index}>{type}</Dropdown.Item>
       ))}
     </DropdownButton>
   );
 };
 
-export default GeneratedDropdown;
+export default DropdownAsync;

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { findRegulation, getStateNames } from "../service/RegulationService";
 import ListGroup from "react-bootstrap/ListGroup";
-import StateNameDropdown from "./StateNameDropdown";
+import DropdownAsync from "./DropdownAsync";
+
 
 const RegulationDisplay = () => {
   const [regulation, setRegulation] = useState();
@@ -18,11 +19,21 @@ const RegulationDisplay = () => {
     </ListGroup.Item>
   );
 
+  const getListItemWithList = (title, list) => (
+    <ListGroup.Item disabled>
+      <b>{title}:</b> {list.map(item => item.type).join(', ')}
+    </ListGroup.Item>
+  );
+
   return (
-    <div className="m-4">
-      <StateNameDropdown onChangeCallback={loadRegulation} />
+    <div className="ml-4 mr-4 mt-2 mb-2">
+     
+      <DropdownAsync onChangeCallback={loadRegulation} 
+        getData={getStateNames}
+        placeholder="Bundesland"
+      />
       {regulation && (
-        <ListGroup>
+        <ListGroup className="mt-2">
           {getListItem(
             "Maximale Anzahl Personen in geschlossenen Räumen",
             regulation.maxPersonsIndoor
@@ -43,12 +54,9 @@ const RegulationDisplay = () => {
             "Maskenpflicht",
             regulation.maskRequired ? "ja" : "nein"
           )}
-          {getListItem(
-            "Geschlossene Gebäude",
-            regulation.closedBusinesses.reduce((acc, val) => {
-              return acc + ", " + val;
-            }, "")
-          )}
+          {
+            getListItemWithList("Geschlossene Gebäude", regulation.closedBusinesses)
+          }
           {getListItem(
             "Maximale Teilnehmerzahl pro Quadratmeter in geschlossenen Räumen",
             regulation.maxAttendeesIndoor
