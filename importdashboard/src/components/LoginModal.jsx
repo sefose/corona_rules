@@ -13,7 +13,8 @@ const LoginModal = () => {
 
   const handleClose = () => setShow(false);
 
-  const checkCredentials = () => {
+  const checkCredentials = (e) => {
+    e.preventDefault();
     if (user === secretUsername && password === secretPassword) {
       handleClose();
     } else {
@@ -36,9 +37,10 @@ const LoginModal = () => {
       <Modal.Header closeButton>
         <Modal.Title>{loginPrompt}</Modal.Title>
       </Modal.Header>
+      <Form>
       <Modal.Body>
-        <Form>
-          <Form.Group controlId="formBasicEmail">
+        {/* <Form> */}
+          <Form.Group controlId="user">
             <Form.Label>Benutzer</Form.Label>
             <Form.Control
               type="text"
@@ -50,21 +52,23 @@ const LoginModal = () => {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group controlId="password">
             <Form.Label>Passwort</Form.Label>
             <Form.Control
               type="password"
               placeholder="password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)
+              }
             />
           </Form.Group>
-        </Form>
+        {/* </Form> */}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={checkCredentials}>
+        <Button variant="secondary" type="submit" onClick={checkCredentials}>
           Log in
         </Button>
       </Modal.Footer>
+      </Form>
     </Modal>
   );
 };
