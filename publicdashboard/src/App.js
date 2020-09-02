@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import RegulationCheckForm from './components/RegulationCheckForm'
-import RegulationDisplay from './components/RegulationDisplay'
+import RegulationView from './components/RegulationView'
 
 const App = () => {
 
@@ -11,7 +11,7 @@ const App = () => {
   function viewSwitch(view) {
     switch (view) {
       case "display":
-        return(<RegulationDisplay />)
+        return(<RegulationView />)
       case "checker":
         return(<RegulationCheckForm></RegulationCheckForm>)  
       default:

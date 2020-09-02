@@ -11,11 +11,10 @@ const DropdownAsync = ({ onChangeCallback, getData, placeholder }) => {
         setItems(resp.data);
       })
       .catch((error) => console.log("error", error));
-  }, [setItems]);
+  }, [setItems, getData]);
 
   const onStateSeleted = (key, e) => {
     const value = e.target.innerHTML;
-    console.log('value', value)
     setSelected(value);
     onChangeCallback(value);
   };

@@ -1,17 +1,8 @@
-import React, { useState } from "react";
-import { findRegulation, getStateNames } from "../service/RegulationService";
+import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-import DropdownAsync from "./DropdownAsync";
 
 
-const RegulationDisplay = () => {
-  const [regulation, setRegulation] = useState();
-
-  const loadRegulation = (stateName) => {
-    findRegulation(stateName).then((resp) => {
-      setRegulation(resp.data);
-    });
-  };
+const RegulationDisplay = ({regulation}) => {
 
   const getListItem = (title, value) => (
     <ListGroup.Item disabled>
@@ -21,17 +12,12 @@ const RegulationDisplay = () => {
 
   const getListItemWithList = (title, list) => (
     <ListGroup.Item disabled>
-      <b>{title}:</b> {list.map(item => item.type).join(', ')}
+      <b>{title}:</b> {list?.map(item => item.type).join(', ')}
     </ListGroup.Item>
   );
 
   return (
-    <div className="ml-4 mr-4 mt-2 mb-2">
-     
-      <DropdownAsync onChangeCallback={loadRegulation} 
-        getData={getStateNames}
-        placeholder="Bundesland"
-      />
+    <div>
       {regulation && (
         <ListGroup className="mt-2">
           {getListItem(
@@ -69,7 +55,6 @@ const RegulationDisplay = () => {
             "Sonstige Einschränkungen",
             regulation.furtherRestrictions
           )}
-          {console.log(regulation.closedBusinesses)}
         </ListGroup>
       )}
     </div>
