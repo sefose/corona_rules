@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { findAllStateNames } from "../service/RegulationDataService";
+import { findAllRegulations } from "../service/RegulationServiceApiService";
+
 
 const StateNameDropdown = ({ onChangeCallback }) => {
   const [stateNames, setStateNames] = useState([]);
   const [selectedState, setSelectedState] = useState(
     "Bitte wählen Sie ein Bundesland"
   );
+  const [regulations, setRegulations] = useState(undefined);
 
   useEffect(() => {
     findAllStateNames()
@@ -17,12 +20,24 @@ const StateNameDropdown = ({ onChangeCallback }) => {
       .catch((error) => console.log("error", error));
   }, [setStateNames]);
 
+  useEffect(() => {
+    findAllRegulations()
+      .then((resp) => {
+        setRegulations(resp.data);
+      })
+      .catch((error) => console.log("error", error));
+  }, [setRegulations]);
+
   const onStateSeleted = (key, e) => {
     const value = e.target.innerHTML;
-    console.log("value", value);
     setSelectedState(value);
-    onChangeCallback(value);
+    onChangeCallback(value.split(",")[0]);
   };
+
+  const getModifyDate = (stateName) => {
+    const date = new Date(regulations.filter(r => r.stateName = stateName)[0].modifyDate);
+    return `${date.toLocaleDateString("de-DE")}, ${date.toLocaleTimeString("de-DE")}`;
+  }
 
   return (
     <DropdownButton
@@ -31,7 +46,7 @@ const StateNameDropdown = ({ onChangeCallback }) => {
       onSelect={onStateSeleted}
     >
       {stateNames.map((stateName, index) => (
-        <Dropdown.Item key={index}>{stateName}</Dropdown.Item>
+        <Dropdown.Item key={index}>{stateName}, (zuletzt aktualisiert: {regulations && getModifyDate(stateName)})</Dropdown.Item>
       ))}
     </DropdownButton>
   );

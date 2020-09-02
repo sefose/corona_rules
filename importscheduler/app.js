@@ -9,10 +9,11 @@ const handleFindError = (e) => {
   console.log("Find Regulations Error", e);
 };
 
-setInterval(
-  () =>
-    findAllRegulations()
-      .then((resp) => saveAllRegulations(resp.data).catch(handleSaveError))
-      .catch(handleFindError),
-  1000 * 30
-);
+const copyRegulations = () =>
+  findAllRegulations()
+    .then((resp) => saveAllRegulations(resp.data).catch(handleSaveError))
+    .catch(handleFindError);
+
+copyRegulations();
+
+setInterval(copyRegulations, 1000 * 60 * 30);
