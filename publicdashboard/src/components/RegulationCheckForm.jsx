@@ -36,8 +36,8 @@ const RegulationCheckForm = () => {
         return (
           numberOfPersons <= regulation.maxPersonsIndoor &&
           numberOfHouseholds <= regulation.maxHouseholdsIndoor &&
-          area <= regulation.maxAttendeesIndoor &&
-          !regulation.closedBusinesses.map(bus => bus.type).includes(businessType)
+          numberOfPersons / area <= regulation.maxAttendeesIndoor &&
+          !regulation.closedBusinesses.map(business => business.type).includes(businessType)
         );
       } else {
         return (
@@ -112,9 +112,9 @@ const RegulationCheckForm = () => {
                     </Form.Group>
 
                     <Form.Group controlId="form.area">
-                      <Form.Label>Personen pro Quadratmeter</Form.Label>
+                      <Form.Label>Veranstaltungsfläche in Quadratmeter</Form.Label>
                       <NumericInput
-                        step={0.1}
+                        step={1}
                         precision={1}
                         value={area}
                         onChange={setArea}
