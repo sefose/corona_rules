@@ -31,6 +31,7 @@ const LoginModal = () => {
       backdrop="static"
       keyboard={false}
       onHide={handleWrongLogin}
+      animation={false}
     >
       <Modal.Header closeButton>
         <Modal.Title>{loginPrompt}</Modal.Title>

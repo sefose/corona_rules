@@ -1,34 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
-import StateNameDropdown from "./components/StateNameDropdown";
+import Table from "react-bootstrap/Table";
 import LoginModal from "./components/LoginModal";
 import {
   findAllRegulations,
   findRegulationByStateName,
+  findAllStateNames,
 } from "./service/RegulationDataService";
 
 import {
   saveAllRegulations,
   saveRegulation,
+  findAllStoredRegulations,
 } from "./service/RegulationServiceApiService";
+import StateTableRow from "./components/StateTableRow";
 
 const App = () => {
-  const DEFAULTSTATECHOOSERTEXT = "Bitte wählen Sie ein Bundesland";
-  const [stateName, setStateName] = useState(DEFAULTSTATECHOOSERTEXT);
+  const [stateNames, setStateNames] = useState([]);
+  const [storedRegulations, setStoredRegulations] = useState([]);
+
+  useEffect(() => {
+    findAllStateNames()
+      .then((resp) => {
+        setStateNames(resp.data);
+      })
+      .catch((error) => console.log("error", error));
+  }, [setStateNames]);
+
+  useEffect(() => {
+    findAllStoredRegulations()
+      .then((resp) => {
+        setStoredRegulations(resp.data);
+      })
+      .catch((error) => console.log("error", error));
+  }, [storedRegulations]);
 
   const importAllRegulations = () => {
-    findAllRegulations().then((resp) => saveAllRegulations(resp.data));
+    findAllRegulations().then((resp) =>
+      saveAllRegulations(resp.data)
+    );
   };
 
-  const importRegulationsByState = () => {
-    if (stateName !== DEFAULTSTATECHOOSERTEXT) {
-      findRegulationByStateName(stateName).then((resp) =>
-        saveRegulation(resp.data)
-      );
-    }
+  const getModifyDate = (stateName) => {
+    return storedRegulations.length > 0
+      ? storedRegulations.filter((r) => r.stateName === stateName)[0].modifyDate
+      : "";
+  };
+  const importRegulationsByState = (stateName) => {
+    findRegulationByStateName(stateName).then((resp) =>
+      saveRegulation(resp.data)
+    );
   };
 
   return (
@@ -43,19 +67,34 @@ const App = () => {
       </Navbar>
       <Container className="m-4">
         <Row className="m-4">
-          <StateNameDropdown
-            onChangeCallback={setStateName}
-          ></StateNameDropdown>
-        </Row>
-        <Row className="m-4">
-          <Button onClick={importRegulationsByState} variant="secondary">
-            Daten für das gewählte Bundesland importieren
-          </Button>
-        </Row>
-        <Row className="m-4">
-          <Button onClick={importAllRegulations} variant="secondary">
-            Daten für alle Bundesländer importieren
-          </Button>
+          <Table size="sm">
+            <thead>
+              <tr>
+                <th>Bundesland</th>
+                <th>letzter Import</th>
+                <th>
+                  {" "}
+        
+                          {" "}
+                          <
+                Button onClick={importAllRegulations} variant="secondary">
+                    alle importieren
+                  </Button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {stateNames &&
+                stateNames.map((stateName, index) => (
+                  <StateTableRow
+                    key={index}
+                    stateName={stateName}
+                    modifyDate={getModifyDate(stateName)}
+                    importCallback={() => importRegulationsByState(stateName)}
+                  />
+                ))}
+            </tbody>
+          </Table>
         </Row>
       </Container>
     </>

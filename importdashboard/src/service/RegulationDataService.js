@@ -12,6 +12,5 @@ export const findAllRegulations = () => {
 };
 
 export const findRegulationByStateName = (stateName) => {
-  console.log("stateName", stateName);
   return axios.get(REGULATION_URL + "/" + stateName);
 };

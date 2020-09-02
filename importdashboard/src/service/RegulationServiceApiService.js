@@ -10,6 +10,6 @@ export const saveRegulation = (regulation) => {
   return axios.post(REGULATION_URL + regulation.stateName, regulation);
 };
 
-export const findAllRegulations = (regulationArray) => {
+export const findAllStoredRegulations = (regulationArray) => {
   return axios.get(REGULATION_URL, regulationArray);
 };
