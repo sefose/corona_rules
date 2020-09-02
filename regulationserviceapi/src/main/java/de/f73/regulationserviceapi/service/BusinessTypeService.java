@@ -15,7 +15,7 @@ public class BusinessTypeService {
     private BusinessTypeRepository businessTypeRepository;
 
     public List<String> getBusinessTypes() {
-        return businessTypeRepository.findAll().stream().map(bt -> bt.getType()).collect(Collectors.toList());
+        return businessTypeRepository.findAll().stream().map(bt -> bt.getType()).distinct().collect(Collectors.toList());
     }
     
 }

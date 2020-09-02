@@ -1,7 +1,13 @@
 import React from "react";
+import BusinessTypeDropDown from './BusinessTypeDropdown'
 
 const RegulationCheckForm = () => {
+
+  const cb = () => console.log("Callback!")
+
   return (
+    <>
+    <BusinessTypeDropDown onChangeCallback={cb}/>
     <form className="m-3">
       <div className="form-group">
         <label for="sortOfSelect">Art der Unternehmung</label>
@@ -54,6 +60,7 @@ const RegulationCheckForm = () => {
         </div>
       </div>
     </form>
+    </>
   );
 };
 

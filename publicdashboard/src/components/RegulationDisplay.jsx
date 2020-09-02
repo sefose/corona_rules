@@ -19,10 +19,10 @@ const RegulationDisplay = () => {
   );
 
   return (
-    <>
+    <div className="m-4">
       <StateNameDropdown onChangeCallback={loadRegulation} />
       {regulation && (
-        <ListGroup className="m-4">
+        <ListGroup>
           {getListItem(
             "Maximale Anzahl Personen in geschlossenen Räumen",
             regulation.maxPersonsIndoor
@@ -64,7 +64,7 @@ const RegulationDisplay = () => {
           {console.log(regulation.closedBusinesses)}
         </ListGroup>
       )}
-    </>
+    </div>
   );
 };
 
