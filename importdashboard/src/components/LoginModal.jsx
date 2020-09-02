@@ -9,7 +9,7 @@ const LoginModal = () => {
   const [show, setShow] = useState(true);
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const [loginPrompt, setLoginPrompt] = useState("Bitte einloggen")
+  const [loginPrompt, setLoginPrompt] = useState("Bitte einloggen");
 
   const handleClose = () => setShow(false);
 
@@ -17,16 +17,21 @@ const LoginModal = () => {
     if (user === secretUsername && password === secretPassword) {
       handleClose();
     } else {
-        handleWrongLogin()
+      handleWrongLogin();
     }
   };
 
   const handleWrongLogin = () => {
     setLoginPrompt(loginPrompt + "!");
-  }
+  };
 
   return (
-    <Modal show={show} backdrop="static" keyboard={false} onHide={handleWrongLogin}>
+    <Modal
+      show={show}
+      backdrop="static"
+      keyboard={false}
+      onHide={handleWrongLogin}
+    >
       <Modal.Header closeButton>
         <Modal.Title>{loginPrompt}</Modal.Title>
       </Modal.Header>
@@ -34,7 +39,11 @@ const LoginModal = () => {
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Benutzer</Form.Label>
-            <Form.Control type="text" placeholder="user" onChange={e => setUser(e.target.value)}/>
+            <Form.Control
+              type="text"
+              placeholder="user"
+              onChange={(e) => setUser(e.target.value)}
+            />
             <Form.Text className="text-muted">
               Ihr Gerät wird explosieren, wenn Sie die falschen Daten eingeben!
             </Form.Text>
@@ -42,7 +51,11 @@ const LoginModal = () => {
 
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Passwort</Form.Label>
-            <Form.Control type="password" placeholder="password" onChange={e => setPassword(e.target.value)}/>
+            <Form.Control
+              type="password"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </Form.Group>
         </Form>
       </Modal.Body>

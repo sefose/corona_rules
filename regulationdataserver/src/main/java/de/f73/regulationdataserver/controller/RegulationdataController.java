@@ -38,5 +38,5 @@ public class RegulationdataController {
     public ResponseEntity<String[]> getAllStates() {
         return new ResponseEntity<>(regulationdataService.findAllStates(), HttpStatus.OK);
     }
-    
+
 }

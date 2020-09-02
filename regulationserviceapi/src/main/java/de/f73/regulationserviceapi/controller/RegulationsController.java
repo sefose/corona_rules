@@ -15,16 +15,14 @@ import de.f73.regulationserviceapi.service.RegulationsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
 @Controller
 public class RegulationsController {
 
     @Autowired
     private RegulationsService regulationsService;
-    
+
     @GetMapping("/regulations")
-    public ResponseEntity<List<Regulation>> getRegulations () {
+    public ResponseEntity<List<Regulation>> getRegulations() {
         List<Regulation> regulations = regulationsService.findAll();
         return new ResponseEntity<>(regulations, HttpStatus.OK);
     }
@@ -38,13 +36,13 @@ public class RegulationsController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @PostMapping(value="/regulations")
+    @PostMapping(value = "/regulations")
     public ResponseEntity<Void> postRegulations(@RequestBody List<Regulation> regulations) {
         regulationsService.save(regulations);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping(value="regulations/{state}")
+    @PostMapping(value = "regulations/{state}")
     public ResponseEntity<Regulation> postRegulation(@PathVariable String state, @RequestBody Regulation regulation) {
         Regulation savedRegulation = regulationsService.save(regulation);
         return new ResponseEntity<>(savedRegulation, HttpStatus.CREATED);
@@ -57,9 +55,9 @@ public class RegulationsController {
     }
 
     @GetMapping("/stateNames")
-    public ResponseEntity<List<String>> getStateNames () {
+    public ResponseEntity<List<String>> getStateNames() {
         List<String> stateNames = regulationsService.getStateNames();
         return new ResponseEntity<>(stateNames, HttpStatus.OK);
     }
-    
+
 }
