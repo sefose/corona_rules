@@ -17,14 +17,6 @@ services:
     networks: 
       - dbnet
 
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - 8090:80
-    networks:
-      - dbnet
-
   importdashboard:
     container_name: importdashboard
     build:
