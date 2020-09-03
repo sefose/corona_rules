@@ -14,6 +14,7 @@ import de.f73.regulationserviceapi.models.Regulation;
 import de.f73.regulationserviceapi.service.RegulationsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @Controller
 public class RegulationsController {
@@ -37,15 +38,23 @@ public class RegulationsController {
     }
 
     @PostMapping(value = "/regulations")
-    public ResponseEntity<Void> postRegulations(@RequestBody List<Regulation> regulations) {
-        regulationsService.save(regulations);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<Void> postRegulations(@RequestBody List<Regulation> regulations,
+            @RequestHeader("user") String user, @RequestHeader("password") String password) {
+        if (authorize(user, password)) {
+            regulationsService.save(regulations);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @PostMapping(value = "regulations/{state}")
-    public ResponseEntity<Regulation> postRegulation(@PathVariable String state, @RequestBody Regulation regulation) {
-        Regulation savedRegulation = regulationsService.save(regulation);
-        return new ResponseEntity<>(savedRegulation, HttpStatus.CREATED);
+    public ResponseEntity<Regulation> postRegulation(@PathVariable String state, @RequestBody Regulation regulation,
+            @RequestHeader("user") String user, @RequestHeader("password") String password) {
+        if (authorize(user, password)) {
+            Regulation savedRegulation = regulationsService.save(regulation);
+            return new ResponseEntity<>(savedRegulation, HttpStatus.CREATED);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @DeleteMapping("regulations/{state}")
@@ -58,6 +67,10 @@ public class RegulationsController {
     public ResponseEntity<List<String>> getStateNames() {
         List<String> stateNames = regulationsService.getStateNames();
         return new ResponseEntity<>(stateNames, HttpStatus.OK);
+    }
+
+    private boolean authorize(String user, String password) {
+        return "import".equals(user) && "importpassword".equals(password);
     }
 
 }
