@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import DropdownAsync from "./DropdownAsync";
-import Dropdown from "./Dropdown";
+import DropdownAsync from "../components/DropdownAsync";
+import Dropdown from "../components/Dropdown";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { getBusinessTypes } from "../service/BusinessTypeService";
@@ -9,9 +9,9 @@ import NumericInput from "react-numeric-input";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import RegulationDisplay from "./RegulationDisplay";
+import RegulationDisplay from "../components/RegulationDisplay";
 import ListGroup from "react-bootstrap/ListGroup";
-import EvaluationModal from "./EvaluationModal";
+import EvaluationModal from "../components/EvaluationModal";
 
 const RegulationCheckForm = () => {
   const [indoors, setIndoors] = useState();

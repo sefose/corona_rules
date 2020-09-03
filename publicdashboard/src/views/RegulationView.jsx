@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { findRegulation, getStateNames } from "../service/RegulationService";
-import DropdownAsync from "./DropdownAsync";
-import RegulationDisplay from "./RegulationDisplay";
+import DropdownAsync from "../components/DropdownAsync";
+import RegulationDisplay from "../components/RegulationDisplay";
 
 
 const RegulationView = () => {

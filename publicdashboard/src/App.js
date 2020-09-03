@@ -1,19 +1,18 @@
-import React, {useState} from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import RegulationCheckForm from './components/RegulationCheckForm'
-import RegulationView from './components/RegulationView'
+import React, { useState } from "react";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import RegulationCheckForm from "./views/RegulationCheckForm";
+import RegulationView from "./views/RegulationView";
 
 const App = () => {
-
-  const [view, setview] = useState("display")
+  const [view, setview] = useState("checker");
 
   function viewSwitch(view) {
     switch (view) {
       case "display":
-        return(<RegulationView />)
+        return <RegulationView />;
       case "checker":
-        return(<RegulationCheckForm></RegulationCheckForm>)  
+        return <RegulationCheckForm></RegulationCheckForm>;
       default:
         break;
     }
@@ -21,19 +20,29 @@ const App = () => {
 
   return (
     <>
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand>Corona Rules</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link onClick={() => setview("display")} active={view ==="display"}>Verordnungen</Nav.Link>
-          <Nav.Link onClick={() => setview("checker")} active={view ==="checker"}>Konformitätsprüfer</Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-    {viewSwitch(view)}
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand>Corona Rules</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link
+              onClick={() => setview("checker")}
+              active={view === "checker"}
+            >
+              Konformitätsprüfer
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => setview("display")}
+              active={view === "display"}
+            >
+              Verordnungen
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      {viewSwitch(view)}
     </>
   );
-}
+};
 
 export default App;
